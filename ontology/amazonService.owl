@@ -1,0 +1,1188 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+	<!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+	<!ENTITY swrl "http://www.w3.org/2003/11/swrl#" >
+	<!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#" >
+	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+	<!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#" >
+	<!ENTITY time "http://www.isi.edu/~pan/damltime/time-entry.owl#" >
+	<!ENTITY service "http://www.daml.org/services/owl-s/1.1/Service.owl#" >
+	<!ENTITY process "http://www.daml.org/services/owl-s/1.1/Process.owl#" >
+	<!ENTITY profile "http://www.daml.org/services/owl-s/1.1/Profile.owl#" >
+	<!ENTITY grounding "http://www.daml.org/services/owl-s/1.1/Grounding.owl#" >
+	<!ENTITY onto "http://rrasmo.com/owlsrunner/ontAmazon.owl#" >
+	<!ENTITY drs "http://cs-www.cs.yale.edu/homes/dvm/daml/drsonto040520.owl#" >
+	<!ENTITY list "http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#" >
+	<!ENTITY expr "http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#" >
+]>
+
+<rdf:RDF xmlns="http://rrasmo.com/owlsrunner/amazonService.owl#"
+	xml:base="http://rrasmo.com/owlsrunner/amazonService.owl"
+	xmlns:onto="http://rrasmo.com/owlsrunner/ontAmazon.owl#"
+	xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+	xmlns:list="http://www.daml.org/services/owl-s/1.1/generic/ObjectList.owl#"
+	xmlns:expr="http://www.daml.org/services/owl-s/1.1/generic/Expression.owl#"
+	xmlns:drs="http://cs-www.cs.yale.edu/homes/dvm/daml/drsonto040520.owl#"
+	xmlns:process="http://www.daml.org/services/owl-s/1.1/Process.owl#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+	xmlns:time="http://www.isi.edu/~pan/damltime/time-entry.owl#"
+	xmlns:grounding="http://www.daml.org/services/owl-s/1.1/Grounding.owl#"
+	xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+	xmlns:service="http://www.daml.org/services/owl-s/1.1/Service.owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:profile="http://www.daml.org/services/owl-s/1.1/Profile.owl#">
+		
+	<owl:Ontology rdf:about="">
+		<owl:imports rdf:resource="http://www.daml.org/services/owl-s/1.1/Service.owl"/>
+		<owl:imports rdf:resource="http://www.daml.org/services/owl-s/1.1/Profile.owl"/>
+		<owl:imports rdf:resource="http://www.daml.org/services/owl-s/1.1/Process.owl"/>
+		<owl:imports rdf:resource="http://www.daml.org/services/owl-s/1.1/Grounding.owl"/>
+		<owl:imports rdf:resource="http://rrasmo.com/owlsrunner/ontAmazon.owl"/>
+		<!--<owl:imports rdf:resource="http://www.daml.org/services/owl-s/1.1/Profile.owl"/>
+		<owl:imports rdf:resource="http://www.daml.org/services/owl-s/1.1/Grounding.owl"/>
+		<owl:imports rdf:resource="http://www.w3.org/2003/11/swrl"/>
+		<owl:imports rdf:resource="http://www.w3.org/2003/11/swrlb"/>-->
+	</owl:Ontology>
+		
+	
+	
+	
+	<!--SERVICE-->
+	
+	<service:Service rdf:ID="AmazonService">
+		<service:presents rdf:resource="#AmazonProfile"/>
+		<service:describedBy rdf:resource="#AmazonProcess"/>
+		<service:supports rdf:resource="#AmazonProcessGrounding"/>
+	</service:Service>
+	
+	
+	
+	
+	
+	
+	<!--PROFILE-->
+	
+	<profile:Profile rdf:ID="AmazonProfile">
+		<profile:serviceName rdf:datatype="&xsd;string">AmazonService</profile:serviceName>
+		<profile:textDescription rdf:datatype="&xsd;string">An Amazon service that allows to search products and manage a cart</profile:textDescription>
+		<profile:has_process rdf:resource="#AmazonProcess"/>
+		<profile:hasInput rdf:resource="#SubscriptionId"/>
+		<profile:hasOutput rdf:resource="#PurchaseURL"/>
+		<profile:hasOutput rdf:resource="#TotalPrice"/>
+		<service:presentedBy rdf:resource="#AmazonService"/>
+	</profile:Profile>
+	
+	
+	
+	
+	
+	<!--PROCESS-->
+	
+	<process:Output rdf:ID="CartContent">
+		<process:parameterType rdf:datatype="&xsd;anyURI">http://rrasmo.com/owlsrunner/ontAmazon.owl#CartContent</process:parameterType>
+	</process:Output>
+	<process:Output rdf:ID="CartId">
+		<process:parameterType rdf:datatype="&xsd;anyURI">http://www.w3.org/2001/XMLSchema#string</process:parameterType>
+	</process:Output>
+	<process:Output rdf:ID="Finish">
+		<process:parameterType rdf:datatype="&xsd;anyURI">http://www.w3.org/2001/XMLSchema#boolean</process:parameterType>
+	</process:Output>
+	<process:Output rdf:ID="HMAC">
+		<process:parameterType rdf:datatype="&xsd;anyURI">http://www.w3.org/2001/XMLSchema#string</process:parameterType>
+	</process:Output>
+	<process:Output rdf:ID="PurchaseURL">
+		<process:parameterType rdf:datatype="&xsd;anyURI">http://www.w3.org/2001/XMLSchema#string</process:parameterType>
+	</process:Output>
+	<process:Input rdf:ID="SearchRequest">
+		<process:parameterType rdf:datatype="&xsd;anyURI">http://rrasmo.com/owlsrunner/ontAmazon.owl#SearchRequest</process:parameterType>
+	</process:Input>
+	<process:Output rdf:ID="SearchResult">
+		<process:parameterType rdf:datatype="&xsd;anyURI">http://rrasmo.com/owlsrunner/ontAmazon.owl#SearchResult</process:parameterType>
+	</process:Output>
+	<process:Input rdf:ID="SubscriptionId">
+		<process:parameterType rdf:datatype="&xsd;anyURI">http://www.w3.org/2001/XMLSchema#string</process:parameterType>
+	</process:Input>
+	<process:Output rdf:ID="TotalPrice">
+		<process:parameterType rdf:datatype="&xsd;anyURI">http://rrasmo.com/owlsrunner/ontAmazon.owl#Price</process:parameterType>
+	</process:Output>
+	<process:Output rdf:ID="ValidCart">
+		<process:parameterType rdf:datatype="&xsd;anyURI">http://www.w3.org/2001/XMLSchema#boolean</process:parameterType>
+	</process:Output>
+	<process:Input rdf:ID="CartRequestWithId">
+		<process:parameterType rdf:datatype="&xsd;anyURI">http://rrasmo.com/owlsrunner/ontAmazon.owl#CartRequestWithId</process:parameterType>
+	</process:Input>
+	<process:Input rdf:ID="CartRequestWithItems">
+		<process:parameterType rdf:datatype="&xsd;anyURI">http://rrasmo.com/owlsrunner/ontAmazon.owl#CartRequestWithItems</process:parameterType>
+	</process:Input>
+	<process:Input rdf:ID="CartRequestWithIdAndItems">
+		<process:parameterType rdf:datatype="&xsd;anyURI">http://rrasmo.com/owlsrunner/ontAmazon.owl#CartRequestWithIdAndItems</process:parameterType>
+	</process:Input>
+	<process:Input rdf:ID="CartRequestWithIdAndMods">
+		<process:parameterType rdf:datatype="&xsd;anyURI">http://rrasmo.com/owlsrunner/ontAmazon.owl#CartRequestWithIdAndMods</process:parameterType>
+	</process:Input>
+	<process:Local rdf:ID="LocalCartAddition">
+		<process:parameterType rdf:datatype="&xsd;anyURI">http://rrasmo.com/owlsrunner/ontAmazon.owl#CartAddition</process:parameterType>
+	</process:Local>
+	
+	
+	<process:AtomicProcess rdf:ID="ItemSearchProcess">
+		<process:name rdf:datatype="&xsd;string">ItemSearch</process:name>
+		<process:hasInput rdf:resource="#SearchRequest"/>
+		<process:hasInput rdf:resource="#SubscriptionId"/>
+		<process:hasOutput rdf:resource="#SearchResult"/>
+		<service:describes rdf:resource="#AmazonService"/><!-- -->
+	</process:AtomicProcess>
+	
+	<process:AtomicProcess rdf:ID="CartCreateProcess">
+		<process:name rdf:datatype="&xsd;string">CartCreate</process:name>
+		<process:hasInput rdf:resource="#SubscriptionId"/>
+		<process:hasInput rdf:resource="#CartRequestWithItems"/>
+		<process:hasOutput rdf:resource="#CartId"/>
+		<process:hasOutput rdf:resource="#HMAC"/>
+		<process:hasOutput rdf:resource="#PurchaseURL"/>
+		<process:hasOutput rdf:resource="#TotalPrice"/>
+		<process:hasOutput rdf:resource="#CartContent"/>
+		<process:hasLocal rdf:resource="#LocalCartAddition"/>
+		<process:hasPrecondition rdf:resource="#CartCreatePrecondition"/>
+		<service:describes rdf:resource="#AmazonService"/><!-- -->
+	</process:AtomicProcess>
+	
+	<process:AtomicProcess rdf:ID="CartGetProcess">
+		<process:name rdf:datatype="&xsd;string">CartGet</process:name>
+		<process:hasInput rdf:resource="#SubscriptionId"/>
+		<process:hasInput rdf:resource="#CartRequestWithId"/>
+		<process:hasOutput rdf:resource="#CartId"/>
+		<process:hasOutput rdf:resource="#HMAC"/>
+		<process:hasOutput rdf:resource="#PurchaseURL"/>
+		<process:hasOutput rdf:resource="#TotalPrice"/>
+		<process:hasOutput rdf:resource="#CartContent"/>
+		<service:describes rdf:resource="#AmazonService"/><!-- -->
+	</process:AtomicProcess>
+	
+	<process:AtomicProcess rdf:ID="CartAddProcess">
+		<process:name rdf:datatype="&xsd;string">CartAdd</process:name>
+		<process:hasInput rdf:resource="#SubscriptionId"/>
+		<process:hasInput rdf:resource="#CartRequestWithIdAndItems"/>
+		<process:hasOutput rdf:resource="#CartId"/>
+		<process:hasOutput rdf:resource="#HMAC"/>
+		<process:hasOutput rdf:resource="#PurchaseURL"/>
+		<process:hasOutput rdf:resource="#TotalPrice"/>
+		<process:hasOutput rdf:resource="#CartContent"/>
+		<service:describes rdf:resource="#AmazonService"/><!-- -->
+	</process:AtomicProcess>
+	
+	<process:AtomicProcess rdf:ID="CartModifyProcess">
+		<process:name rdf:datatype="&xsd;string">CartModify</process:name>
+		<process:hasInput rdf:resource="#SubscriptionId"/>
+		<process:hasInput rdf:resource="#CartRequestWithIdAndMods"/>
+		<process:hasOutput rdf:resource="#CartId"/>
+		<process:hasOutput rdf:resource="#HMAC"/>
+		<process:hasOutput rdf:resource="#PurchaseURL"/>
+		<process:hasOutput rdf:resource="#TotalPrice"/>
+		<process:hasOutput rdf:resource="#CartContent"/>
+		<service:describes rdf:resource="#AmazonService"/><!-- -->
+	</process:AtomicProcess>
+	
+	<process:AtomicProcess rdf:ID="CartClearProcess">
+			<process:name rdf:datatype="&xsd;string">CartClear</process:name>
+			<process:hasInput rdf:resource="#SubscriptionId"/>
+			<process:hasInput rdf:resource="#CartRequestWithId"/>
+			<process:hasOutput rdf:resource="#CartId"/>
+			<process:hasOutput rdf:resource="#HMAC"/>
+			<service:describes rdf:resource="#AmazonService"/><!-- -->
+	</process:AtomicProcess>
+	
+	
+	
+	
+	<process:CompositeProcess rdf:ID="AmazonProcess">
+		<process:name rdf:datatype="&xsd;string">Amazon</process:name>
+		<service:describes rdf:resource="#AmazonService"/>
+		<process:hasInput rdf:resource="#SubscriptionId"/>
+		<process:hasOutput rdf:resource="#TotalPrice"/>
+		<process:hasOutput rdf:resource="#PurchaseURL"/>
+		<process:hasOutput rdf:resource="#Finish"/>
+		<process:hasOutput rdf:resource="#ValidCart"/>
+		<process:hasResult rdf:resource="#AmazonProcessValidResult"/>
+		<process:hasResult rdf:resource="#AmazonProcessInvalidResult"/>
+		<process:composedOf rdf:resource="#Sequence_24"/>
+		<service:describes rdf:resource="#AmazonService"/><!-- -->
+	</process:CompositeProcess>
+	
+	<process:Result rdf:ID="AmazonProcessInvalidResult">
+		<process:inCondition rdf:resource="#InvalidCondition"/>
+		<process:withOutput rdf:resource="#InvalidCartOutputBinding"/>
+	</process:Result>	
+	<process:Result rdf:ID="AmazonProcessValidResult">
+		<process:inCondition rdf:resource="#ValidCondition"/>
+		<process:withOutput rdf:resource="#ValidCartOutputBinding"/>
+	</process:Result>
+	
+	
+	<process:Perform rdf:ID="CartAddPerform">
+			<process:process rdf:resource="#CartAddProcess"/>
+			<process:hasDataFrom rdf:resource="#InputBinding_56"/>
+	</process:Perform>	
+	<process:Produce rdf:ID="CartAddProduce">
+			<process:producedBinding rdf:resource="#OutputBinding_107"/>
+			<process:producedBinding rdf:resource="#OutputBinding_105"/>
+	</process:Produce>
+	<process:Perform rdf:ID="CartClearPerform">
+			<process:process rdf:resource="#CartClearProcess"/>
+			<process:hasDataFrom rdf:resource="#InputBinding_60"/>
+	</process:Perform>	
+	<process:Produce rdf:ID="CartClearProduce">
+			<process:producedBinding rdf:resource="#OutputBinding_115"/>
+			<process:producedBinding rdf:resource="#OutputBinding_113"/>
+	</process:Produce>
+	<process:Perform rdf:ID="CartCreatePerform">
+			<process:process rdf:resource="#CartCreateProcess"/>
+			<process:hasDataFrom rdf:resource="#InputBinding_52"/>
+	</process:Perform>
+	<!--<expr:SWRL-Condition rdf:ID="CartCreatePrecondition"/>	-->
+	
+	<expr:SWRL-Condition rdf:ID="CartCreatePrecondition">
+		<expr:expressionLanguage rdf:resource="&expr;SWRL"/>
+		<expr:expressionBody rdf:parseType="Literal">
+			<swrl:AtomList>
+				<rdf:first>		
+					<swrl:IndividualPropertyAtom>
+						<swrl:propertyPredicate rdf:resource="&onto;cartAddition"/>
+						<swrl:argument1 rdf:resource="#CartRequestWithItems"/>
+						<swrl:argument2 rdf:resource="#LocalCartAddition"/>
+					</swrl:IndividualPropertyAtom>					
+				</rdf:first>
+				<rdf:rest rdf:resource="&rdf;nil"/>
+			</swrl:AtomList>
+		</expr:expressionBody>
+	</expr:SWRL-Condition>
+								
+
+
+
+
+
+	<process:Produce rdf:ID="CartCreateProduce">
+			<process:producedBinding rdf:resource="#OutputBinding_83"/>
+			<process:producedBinding rdf:resource="#OutputBinding_68"/>
+			<process:producedBinding rdf:resource="#OutputBinding_70"/>
+	</process:Produce>
+	<process:Perform rdf:ID="CartGetPerform">
+			<process:process rdf:resource="#CartGetProcess"/>
+			<process:hasDataFrom rdf:resource="#InputBinding_54"/>
+	</process:Perform>	
+	<process:Produce rdf:ID="CartGetProduce">
+			<process:producedBinding rdf:resource="#OutputBinding_119"/>
+			<process:producedBinding rdf:resource="#OutputBinding_117"/>
+	</process:Produce>
+	<process:Perform rdf:ID="CartModifyPerform">
+			<process:process rdf:resource="#CartModifyProcess"/>
+			<process:hasDataFrom rdf:resource="#InputBinding_58"/>
+	</process:Perform>	
+	<process:Produce rdf:ID="CartModifyProduce">
+			<process:producedBinding rdf:resource="#OutputBinding_111"/>
+			<process:producedBinding rdf:resource="#OutputBinding_109"/>
+	</process:Produce>
+	
+	<expr:SWRL-Condition rdf:ID="Condition_76">
+		<expr:expressionLanguage rdf:resource="&expr;SWRL"/>
+		<expr:expressionBody rdf:parseType="Literal">
+			<swrl:AtomList>
+				<rdf:first>		
+					<!-- #Finish = true -->	
+					<swrl:BuiltinAtom>
+						<swrl:builtin rdf:resource="&swrlb;equal"/>
+						<swrl:arguments>
+							<rdf:List>
+								<rdf:first rdf:resource="#Finish"/>
+								<rdf:rest>
+									<rdf:List>
+										<rdf:first rdf:datatype="&xsd;boolean">true</rdf:first>
+										<rdf:rest rdf:resource="&rdf;nil"/>
+									</rdf:List>	
+								</rdf:rest>
+							</rdf:List>	
+						</swrl:arguments>
+					</swrl:BuiltinAtom>
+				</rdf:first>
+				<rdf:rest rdf:resource="&rdf;nil"/>														
+			</swrl:AtomList>
+		</expr:expressionBody>
+	</expr:SWRL-Condition>
+	
+	<process:ControlConstructBag rdf:ID="ControlConstructBag_30">
+			<list:first rdf:resource="#ItemSearchRepeatWhile"/>
+			<list:rest rdf:resource="&list;nil"/>
+	</process:ControlConstructBag>
+	<process:ControlConstructBag rdf:ID="ControlConstructBag_38">
+			<list:first rdf:resource="#FinishProduce"/>
+			<list:rest rdf:resource="#ControlConstructBag_86"/>
+	</process:ControlConstructBag>
+	<process:ControlConstructBag rdf:ID="ControlConstructBag_86">
+			<list:first rdf:resource="#Sequence_85"/>
+			<list:rest rdf:resource="#ControlConstructBag_88"/>
+	</process:ControlConstructBag>
+	<process:ControlConstructBag rdf:ID="ControlConstructBag_88">
+			<list:first rdf:resource="#Sequence_87"/>
+			<list:rest rdf:resource="#ControlConstructBag_90"/>
+	</process:ControlConstructBag>
+	<process:ControlConstructBag rdf:ID="ControlConstructBag_90">
+			<list:first rdf:resource="#Sequence_89"/>
+			<list:rest rdf:resource="#ControlConstructBag_92"/>
+	</process:ControlConstructBag>
+	<process:ControlConstructBag rdf:ID="ControlConstructBag_92">
+			<list:first rdf:resource="#Sequence_91"/>
+			<list:rest rdf:resource="&list;nil"/>
+	</process:ControlConstructBag>
+	<process:ControlConstructList rdf:ID="ControlConstructList_100">
+			<list:first rdf:resource="#CartModifyProduce"/>
+			<list:rest rdf:resource="&list;nil"/>
+	</process:ControlConstructList>
+	<process:ControlConstructList rdf:ID="ControlConstructList_102">
+			<list:first rdf:resource="#CartClearProduce"/>
+			<list:rest rdf:resource="&list;nil"/>
+	</process:ControlConstructList>
+	<process:ControlConstructList rdf:ID="ControlConstructList_104">
+			<list:first rdf:resource="#CartGetProduce"/>
+			<list:rest rdf:resource="&list;nil"/>
+	</process:ControlConstructList>
+	<process:ControlConstructList rdf:ID="ControlConstructList_26">
+			<list:first rdf:resource="#InitialSplit"/>
+			<list:rest rdf:resource="#ControlConstructList_28"/>
+	</process:ControlConstructList>
+	<process:ControlConstructList rdf:ID="ControlConstructList_28">
+			<list:first rdf:resource="#CartCreatePerform"/>
+			<list:rest rdf:resource="#ControlConstructList_34"/>
+	</process:ControlConstructList>
+	<process:ControlConstructList rdf:ID="ControlConstructList_34">
+			<list:first rdf:resource="#CartCreateProduce"/>
+			<list:rest rdf:resource="#ControlConstructList_48"/>
+	</process:ControlConstructList>
+	<process:ControlConstructList rdf:ID="ControlConstructList_48">
+			<list:first rdf:resource="#ManageCartRepeatUntil"/>
+			<list:rest rdf:resource="&list;nil"/>
+	</process:ControlConstructList>
+	<process:ControlConstructList rdf:ID="ControlConstructList_93">
+			<list:first rdf:resource="#CartAddPerform"/>
+			<list:rest rdf:resource="#ControlConstructList_98"/>
+	</process:ControlConstructList>
+	<process:ControlConstructList rdf:ID="ControlConstructList_94">
+			<list:first rdf:resource="#CartModifyPerform"/>
+			<list:rest rdf:resource="#ControlConstructList_100"/>
+	</process:ControlConstructList>
+	<process:ControlConstructList rdf:ID="ControlConstructList_95">
+			<list:first rdf:resource="#CartClearPerform"/>
+			<list:rest rdf:resource="#ControlConstructList_102"/>
+	</process:ControlConstructList>
+	<process:ControlConstructList rdf:ID="ControlConstructList_96">
+			<list:first rdf:resource="#CartGetPerform"/>
+			<list:rest rdf:resource="#ControlConstructList_104"/>
+	</process:ControlConstructList>
+	<process:ControlConstructList rdf:ID="ControlConstructList_98">
+			<list:first rdf:resource="#CartAddProduce"/>
+			<list:rest rdf:resource="&list;nil"/>
+	</process:ControlConstructList>
+	<process:Produce rdf:ID="FinishProduce">
+			<process:producedBinding rdf:resource="#OutputBinding_77"/>
+	</process:Produce>
+	<process:InputBinding rdf:ID="InputBinding_50">
+			<process:toParam rdf:resource="#SubscriptionId"/>
+			<process:valueSource rdf:resource="#ValueOf_51"/>
+	</process:InputBinding>
+	<process:InputBinding rdf:ID="InputBinding_52">
+			<process:toParam rdf:resource="#SubscriptionId"/>
+			<process:valueSource rdf:resource="#ValueOf_53"/>
+	</process:InputBinding>
+	<process:InputBinding rdf:ID="InputBinding_54">
+			<process:toParam rdf:resource="#SubscriptionId"/>
+			<process:valueSource rdf:resource="#ValueOf_55"/>
+	</process:InputBinding>
+	<process:InputBinding rdf:ID="InputBinding_56">
+			<process:toParam rdf:resource="#SubscriptionId"/>
+			<process:valueSource rdf:resource="#ValueOf_57"/>
+	</process:InputBinding>
+	<process:InputBinding rdf:ID="InputBinding_58">
+			<process:toParam rdf:resource="#SubscriptionId"/>
+			<process:valueSource rdf:resource="#ValueOf_59"/>
+	</process:InputBinding>
+	<process:InputBinding rdf:ID="InputBinding_60">
+			<process:toParam rdf:resource="#SubscriptionId"/>
+			<process:valueSource rdf:resource="#ValueOf_61"/>
+	</process:InputBinding>
+	<process:OutputBinding rdf:ID="InvalidCartOutputBinding">
+			<process:valueData rdf:datatype="&xsd;boolean">false</process:valueData>
+			<process:toParam rdf:resource="#ValidCart"/>
+	</process:OutputBinding>
+	
+	<expr:SWRL-Condition rdf:ID="ValidCondition">
+		<expr:expressionLanguage rdf:resource="&expr;SWRL"/>
+		<expr:expressionBody rdf:parseType="Literal">
+			<swrl:AtomList>
+				<rdf:first>		
+					<!-- #PurchaseURL != null -->	
+					<swrl:BuiltinAtom>
+						<swrl:builtin rdf:resource="&swrlb;notEqual"/>
+						<swrl:arguments>
+							<rdf:List>
+								<rdf:first rdf:resource="#PurchaseURL"/>
+								<rdf:rest>
+									<rdf:List>
+										<rdf:first rdf:datatype="&xsd;string"></rdf:first>
+										<rdf:rest rdf:resource="&rdf;nil"/>
+									</rdf:List>	
+								</rdf:rest>
+							</rdf:List>	
+						</swrl:arguments>
+					</swrl:BuiltinAtom>
+				</rdf:first>
+				<rdf:rest rdf:resource="&rdf;nil"/>														
+			</swrl:AtomList>
+		</expr:expressionBody>
+	</expr:SWRL-Condition>
+	
+	<expr:SWRL-Condition rdf:ID="InvalidCondition">
+		<expr:expressionLanguage rdf:resource="&expr;SWRL"/>
+		<expr:expressionBody rdf:parseType="Literal">
+			<swrl:AtomList>
+				<rdf:first>		
+					<!-- #PurchaseURL = null -->	
+					<swrl:BuiltinAtom>
+						<swrl:builtin rdf:resource="&swrlb;equal"/>
+						<swrl:arguments>
+							<rdf:List>
+								<rdf:first rdf:resource="#PurchaseURL"/>
+								<rdf:rest>
+									<rdf:List>
+										<rdf:first rdf:datatype="&xsd;string"></rdf:first>
+										<rdf:rest rdf:resource="&rdf;nil"/>
+									</rdf:List>	
+								</rdf:rest>
+							</rdf:List>	
+						</swrl:arguments>
+					</swrl:BuiltinAtom>
+				</rdf:first>
+				<rdf:rest rdf:resource="&rdf;nil"/>														
+			</swrl:AtomList>
+		</expr:expressionBody>
+	</expr:SWRL-Condition>
+											
+	
+	<process:Perform rdf:ID="ItemSearchPerform">
+			<process:process rdf:resource="#ItemSearchProcess"/>
+			<process:hasDataFrom rdf:resource="#InputBinding_50"/>
+	</process:Perform>	
+	<process:Repeat-While rdf:ID="ItemSearchRepeatWhile">
+			<process:whileCondition rdf:resource="&expr;AlwaysTrue"/>
+			<process:whileProcess rdf:resource="#ItemSearchPerform"/>
+	</process:Repeat-While>
+	<process:Choice rdf:ID="ManageCartChoice">
+			<process:components rdf:resource="#ControlConstructBag_38"/>
+	</process:Choice>
+	<process:Repeat-Until rdf:ID="ManageCartRepeatUntil">
+			<process:untilCondition rdf:resource="#Condition_76"/>
+			<process:untilProcess rdf:resource="#ManageCartChoice"/>
+	</process:Repeat-Until>
+	<process:OutputBinding rdf:ID="OutputBinding_105">
+			<process:toParam rdf:resource="#PurchaseURL"/>
+			<process:valueSource rdf:resource="#ValueOf_106"/>
+	</process:OutputBinding>
+	<process:OutputBinding rdf:ID="OutputBinding_107">
+			<process:toParam rdf:resource="#TotalPrice"/>
+			<process:valueSource rdf:resource="#ValueOf_108"/>
+	</process:OutputBinding>
+	<process:OutputBinding rdf:ID="OutputBinding_109">
+			<process:toParam rdf:resource="#PurchaseURL"/>
+			<process:valueSource rdf:resource="#ValueOf_110"/>
+	</process:OutputBinding>
+	<process:OutputBinding rdf:ID="OutputBinding_111">
+			<process:toParam rdf:resource="#TotalPrice"/>
+			<process:valueSource rdf:resource="#ValueOf_112"/>
+	</process:OutputBinding>
+	<process:OutputBinding rdf:ID="OutputBinding_113">
+			<process:toParam rdf:resource="#PurchaseURL"/>
+			<process:valueData rdf:datatype="&xsd;string"/>
+	</process:OutputBinding>
+	<process:OutputBinding rdf:ID="OutputBinding_115">
+			<process:toParam rdf:resource="#TotalPrice"/>
+			<process:valueData/>
+	</process:OutputBinding>
+	<process:OutputBinding rdf:ID="OutputBinding_117">
+			<process:toParam rdf:resource="#PurchaseURL"/>
+			<process:valueSource rdf:resource="#ValueOf_118"/>
+	</process:OutputBinding>
+	<process:OutputBinding rdf:ID="OutputBinding_119">
+			<process:toParam rdf:resource="#TotalPrice"/>
+			<process:valueSource rdf:resource="#ValueOf_120"/>
+	</process:OutputBinding>
+	<process:OutputBinding rdf:ID="OutputBinding_68">
+			<process:toParam rdf:resource="#PurchaseURL"/>
+			<process:valueSource rdf:resource="#ValueOf_69"/>
+	</process:OutputBinding>
+	<process:OutputBinding rdf:ID="OutputBinding_70">
+			<process:toParam rdf:resource="#Finish"/>
+			<process:valueData rdf:datatype="&xsd;boolean">false</process:valueData>
+	</process:OutputBinding>
+	<process:OutputBinding rdf:ID="OutputBinding_77">
+			<process:toParam rdf:resource="#Finish"/>
+			<process:valueData rdf:datatype="&xsd;boolean">true</process:valueData>
+	</process:OutputBinding>
+	<process:OutputBinding rdf:ID="OutputBinding_83">
+			<process:toParam rdf:resource="#TotalPrice"/>
+			<process:valueSource rdf:resource="#ValueOf_84"/>
+	</process:OutputBinding>
+	<process:Sequence rdf:ID="Sequence_24">
+			<process:components rdf:resource="#ControlConstructList_26"/>
+	</process:Sequence>
+	<process:Sequence rdf:ID="Sequence_85">
+			<process:components rdf:resource="#ControlConstructList_93"/>
+	</process:Sequence>
+	<process:Sequence rdf:ID="Sequence_87">
+			<process:components rdf:resource="#ControlConstructList_94"/>
+	</process:Sequence>
+	<process:Sequence rdf:ID="Sequence_89">
+			<process:components rdf:resource="#ControlConstructList_95"/>
+	</process:Sequence>
+	<process:Sequence rdf:ID="Sequence_91">
+			<process:components rdf:resource="#ControlConstructList_96"/>
+	</process:Sequence>
+	<process:Split rdf:ID="InitialSplit">
+			<process:components rdf:resource="#ControlConstructBag_30"/>
+	</process:Split>
+
+	<process:OutputBinding rdf:ID="ValidCartOutputBinding">
+			<process:valueData rdf:datatype="&xsd;boolean">true</process:valueData>
+			<process:toParam rdf:resource="#ValidCart"/>
+	</process:OutputBinding>
+	
+	<process:ValueOf rdf:ID="ValueOf_106">
+			<process:theVar rdf:resource="#PurchaseURL"/>
+			<process:fromProcess rdf:resource="#CartAddPerform"/>
+	</process:ValueOf>
+	<process:ValueOf rdf:ID="ValueOf_108">
+			<process:theVar rdf:resource="#TotalPrice"/>
+			<process:fromProcess rdf:resource="#CartAddPerform"/>
+	</process:ValueOf>
+	<process:ValueOf rdf:ID="ValueOf_110">
+			<process:theVar rdf:resource="#PurchaseURL"/>
+			<process:fromProcess rdf:resource="#CartModifyPerform"/>
+	</process:ValueOf>
+	<process:ValueOf rdf:ID="ValueOf_112">
+			<process:theVar rdf:resource="#TotalPrice"/>
+			<process:fromProcess rdf:resource="#CartModifyPerform"/>
+	</process:ValueOf>
+	<!--<process:ValueOf rdf:ID="ValueOf_114">
+			<process:theVar rdf:resource="#SubscriptionId"/>
+			<process:fromProcess rdf:resource="&process;TheParentPerform"/>
+	</process:ValueOf>
+	<process:ValueOf rdf:ID="ValueOf_116">
+			<process:theVar rdf:resource="#SubscriptionId"/>
+			<process:fromProcess rdf:resource="&process;TheParentPerform"/>
+	</process:ValueOf>-->
+	<process:ValueOf rdf:ID="ValueOf_118">
+			<process:theVar rdf:resource="#PurchaseURL"/>
+			<process:fromProcess rdf:resource="#CartGetPerform"/>
+	</process:ValueOf>
+	<process:ValueOf rdf:ID="ValueOf_120">
+			<process:theVar rdf:resource="#TotalPrice"/>
+			<process:fromProcess rdf:resource="#CartGetPerform"/>
+	</process:ValueOf>
+	<process:ValueOf rdf:ID="ValueOf_51">
+			<process:theVar rdf:resource="#SubscriptionId"/>
+			<process:fromProcess rdf:resource="&process;TheParentPerform"/>
+	</process:ValueOf>
+	<process:ValueOf rdf:ID="ValueOf_53">
+			<process:theVar rdf:resource="#SubscriptionId"/>
+			<process:fromProcess rdf:resource="&process;TheParentPerform"/>
+	</process:ValueOf>
+	<process:ValueOf rdf:ID="ValueOf_55">
+			<process:theVar rdf:resource="#SubscriptionId"/>
+			<process:fromProcess rdf:resource="&process;TheParentPerform"/>
+	</process:ValueOf>
+	<process:ValueOf rdf:ID="ValueOf_57">
+			<process:theVar rdf:resource="#SubscriptionId"/>
+			<process:fromProcess rdf:resource="&process;TheParentPerform"/>
+	</process:ValueOf>
+	<process:ValueOf rdf:ID="ValueOf_59">
+			<process:theVar rdf:resource="#SubscriptionId"/>
+			<process:fromProcess rdf:resource="&process;TheParentPerform"/>
+	</process:ValueOf>
+	<process:ValueOf rdf:ID="ValueOf_61">
+			<process:theVar rdf:resource="#SubscriptionId"/>
+			<process:fromProcess rdf:resource="&process;TheParentPerform"/>
+	</process:ValueOf>
+	<process:ValueOf rdf:ID="ValueOf_69">
+			<process:theVar rdf:resource="#PurchaseURL"/>
+			<process:fromProcess rdf:resource="#CartCreatePerform"/>
+	</process:ValueOf>
+	<process:ValueOf rdf:ID="ValueOf_84">
+			<process:theVar rdf:resource="#TotalPrice"/>
+			<process:fromProcess rdf:resource="#CartCreatePerform"/>
+	</process:ValueOf>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!--GROUNDING-->
+	
+	
+	
+	<grounding:WsdlGrounding rdf:ID="AmazonProcessGrounding">
+			<service:supportedBy rdf:resource="#AmazonService"/>
+			<grounding:hasAtomicProcessGrounding rdf:resource="#ItemSearchAtomicGrounding"/>
+			<grounding:hasAtomicProcessGrounding rdf:resource="#CartCreateAtomicGrounding"/>
+			<grounding:hasAtomicProcessGrounding rdf:resource="#CartGetAtomicGrounding"/>
+			<grounding:hasAtomicProcessGrounding rdf:resource="#CartAddAtomicGrounding"/>
+			<grounding:hasAtomicProcessGrounding rdf:resource="#CartModifyAtomicGrounding"/>
+			<grounding:hasAtomicProcessGrounding rdf:resource="#CartClearAtomicGrounding"/>
+	</grounding:WsdlGrounding>
+	
+	
+	<grounding:WsdlAtomicProcessGrounding rdf:ID="ItemSearchAtomicGrounding">
+			<grounding:wsdlInputMessage rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/2008-08-19#ItemSearchRequestMsg</grounding:wsdlInputMessage>
+			<grounding:wsdlOutputMessage rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/2008-08-19#ItemSearchResponseMsg</grounding:wsdlOutputMessage>
+			<grounding:wsdlDocument rdf:datatype="&xsd;anyURI">http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl</grounding:wsdlDocument>
+			<grounding:owlsProcess rdf:resource="#ItemSearchProcess"/>
+			<grounding:wsdlOperation rdf:resource="#ItemSearchOperation"/>
+			<grounding:wsdlInput rdf:resource="#SubscriptionIdWSDLMap"/>
+			<grounding:wsdlInput rdf:resource="#SearchRequestWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#SearchResultWSDLMap"/>
+	</grounding:WsdlAtomicProcessGrounding>
+	
+	<grounding:WsdlOperationRef rdf:ID="ItemSearchOperation">
+			<grounding:portType rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#AWSECommerceServicePort</grounding:portType>
+			<grounding:operation rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#ItemSearch</grounding:operation>
+	</grounding:WsdlOperationRef>
+	
+	
+	<grounding:WsdlAtomicProcessGrounding rdf:ID="CartCreateAtomicGrounding">
+			<grounding:wsdlInputMessage rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/2008-08-19#CartCreateRequestMsg</grounding:wsdlInputMessage>
+			<grounding:wsdlOutputMessage rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/2008-08-19#CartCreateResponseMsg</grounding:wsdlOutputMessage>
+			<grounding:wsdlDocument rdf:datatype="&xsd;anyURI">http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl</grounding:wsdlDocument>
+			<grounding:owlsProcess rdf:resource="#CartCreateProcess"/>
+			<grounding:wsdlOperation rdf:resource="#CartCreateOperation"/>
+			<grounding:wsdlInput rdf:resource="#SubscriptionIdWSDLMap"/>
+			<grounding:wsdlInput rdf:resource="#CartRequestWithItemsWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#CartIdWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#HMACWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#PurchaseURLWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#TotalPriceWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#CartContentWSDLMap"/>
+	</grounding:WsdlAtomicProcessGrounding>
+	
+	<grounding:WsdlOperationRef rdf:ID="CartCreateOperation">
+			<grounding:portType rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#AWSECommerceServicePort</grounding:portType>
+			<grounding:operation rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#CartCreate</grounding:operation>
+	</grounding:WsdlOperationRef>
+	
+	
+	<grounding:WsdlAtomicProcessGrounding rdf:ID="CartGetAtomicGrounding">
+			<grounding:wsdlInputMessage rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/2008-08-19#CartGetRequestMsg</grounding:wsdlInputMessage>
+			<grounding:wsdlOutputMessage rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/2008-08-19#CartGetResponseMsg</grounding:wsdlOutputMessage>
+			<grounding:wsdlDocument rdf:datatype="&xsd;anyURI">http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl</grounding:wsdlDocument>
+			<grounding:owlsProcess rdf:resource="#CartGetProcess"/>
+			<grounding:wsdlOperation rdf:resource="#CartGetOperation"/>
+			<grounding:wsdlInput rdf:resource="#SubscriptionIdWSDLMap"/>
+			<grounding:wsdlInput rdf:resource="#CartRequestWithIdWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#CartIdWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#HMACWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#PurchaseURLWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#TotalPriceWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#CartContentWSDLMap"/>
+	</grounding:WsdlAtomicProcessGrounding>
+	
+	<grounding:WsdlOperationRef rdf:ID="CartGetOperation">
+			<grounding:portType rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#AWSECommerceServicePort</grounding:portType>
+			<grounding:operation rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#CartGet</grounding:operation>
+	</grounding:WsdlOperationRef>
+	
+	
+	<grounding:WsdlAtomicProcessGrounding rdf:ID="CartAddAtomicGrounding">
+			<grounding:wsdlInputMessage rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/2008-08-19#CartAddRequestMsg</grounding:wsdlInputMessage>
+			<grounding:wsdlOutputMessage rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/2008-08-19#CartAddResponseMsg</grounding:wsdlOutputMessage>
+			<grounding:wsdlDocument rdf:datatype="&xsd;anyURI">http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl</grounding:wsdlDocument>
+			<grounding:owlsProcess rdf:resource="#CartAddProcess"/>
+			<grounding:wsdlOperation rdf:resource="#CartAddOperation"/>
+			<grounding:wsdlInput rdf:resource="#SubscriptionIdWSDLMap"/>
+			<grounding:wsdlInput rdf:resource="#CartRequestWithIdAndItemsWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#CartIdWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#HMACWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#PurchaseURLWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#TotalPriceWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#CartContentWSDLMap"/>
+	</grounding:WsdlAtomicProcessGrounding>
+	
+	<grounding:WsdlOperationRef rdf:ID="CartAddOperation">
+			<grounding:portType rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#AWSECommerceServicePort</grounding:portType>
+			<grounding:operation rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#CartAdd</grounding:operation>
+	</grounding:WsdlOperationRef>
+	
+	
+	<grounding:WsdlAtomicProcessGrounding rdf:ID="CartModifyAtomicGrounding">
+			<grounding:wsdlInputMessage rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/2008-08-19#CartModifyRequestMsg</grounding:wsdlInputMessage>
+			<grounding:wsdlOutputMessage rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/2008-08-19#CartModifyResponseMsg</grounding:wsdlOutputMessage>
+			<grounding:wsdlDocument rdf:datatype="&xsd;anyURI">http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl</grounding:wsdlDocument>
+			<grounding:owlsProcess rdf:resource="#CartModifyProcess"/>
+			<grounding:wsdlOperation rdf:resource="#CartModifyOperation"/>
+			<grounding:wsdlInput rdf:resource="#SubscriptionIdWSDLMap"/>
+			<grounding:wsdlInput rdf:resource="#CartRequestWithIdAndModsWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#CartIdWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#HMACWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#PurchaseURLWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#TotalPriceWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#CartContentWSDLMap"/>
+	</grounding:WsdlAtomicProcessGrounding>
+	
+	<grounding:WsdlOperationRef rdf:ID="CartModifyOperation">
+			<grounding:portType rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#AWSECommerceServicePort</grounding:portType>
+			<grounding:operation rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#CartModify</grounding:operation>
+	</grounding:WsdlOperationRef>
+	
+	
+	<grounding:WsdlAtomicProcessGrounding rdf:ID="CartClearAtomicGrounding">
+			<grounding:wsdlInputMessage rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/2008-08-19#CartClearRequestMsg</grounding:wsdlInputMessage>
+			<grounding:wsdlOutputMessage rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/2008-08-19#CartClearResponseMsg</grounding:wsdlOutputMessage>
+			<grounding:wsdlDocument rdf:datatype="&xsd;anyURI">http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl</grounding:wsdlDocument>
+			<grounding:owlsProcess rdf:resource="#CartClearProcess"/>
+			<grounding:wsdlOperation rdf:resource="#CartClearOperation"/>
+			<grounding:wsdlInput rdf:resource="#SubscriptionIdWSDLMap"/>
+			<grounding:wsdlInput rdf:resource="#CartRequestWithIdWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#CartIdWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#HMACWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#PurchaseURLWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#TotalPriceWSDLMap"/>
+			<grounding:wsdlOutput rdf:resource="#CartContentWSDLMap"/>
+	</grounding:WsdlAtomicProcessGrounding>
+	
+	<grounding:WsdlOperationRef rdf:ID="CartClearOperation">
+			<grounding:portType rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#AWSECommerceServicePort</grounding:portType>
+			<grounding:operation rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#CartClear</grounding:operation>
+	</grounding:WsdlOperationRef>
+	
+	
+	
+	
+	
+	
+	
+	<grounding:WsdlInputMessageMap rdf:ID="SubscriptionIdWSDLMap">
+			<grounding:wsdlMessagePart rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#SubscriptionId</grounding:wsdlMessagePart>
+			<grounding:owlsParameter rdf:resource="#SubscriptionId"/>
+	</grounding:WsdlInputMessageMap>
+	
+	<grounding:WsdlInputMessageMap rdf:ID="SearchRequestWSDLMap">
+			<grounding:wsdlMessagePart rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#Request</grounding:wsdlMessagePart>
+			<grounding:owlsParameter rdf:resource="#SearchRequest"/>
+			<grounding:xsltTransformationString>
+				<![CDATA[
+					<xsl:stylesheet version="1.0" 
+													xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:onto="http://rrasmo.com/owlsrunner/ontAmazon.owl#" 
+													>
+						<xsl:template match="//onto:SearchRequest">
+							<Request>
+								<SearchIndex>
+									<xsl:value-of select="onto:searchIndex"/>
+								</SearchIndex>
+								<Keywords>
+									<xsl:value-of select="onto:keywords"/>
+								</Keywords>
+								<Author>
+									<xsl:value-of select="onto:author"/>
+								</Author>
+								<Title>
+									<xsl:value-of select="onto:title"/>
+								</Title>
+								<ResponseGroup>Small</ResponseGroup>
+								<ResponseGroup>OfferSummary</ResponseGroup>
+							</Request>
+						</xsl:template>
+					</xsl:stylesheet>
+				]]>
+			</grounding:xsltTransformationString>
+	</grounding:WsdlInputMessageMap>
+	
+	<grounding:WsdlOutputMessageMap rdf:ID="SearchResultWSDLMap">
+			<grounding:wsdlMessagePart rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#Items</grounding:wsdlMessagePart>
+			<grounding:owlsParameter rdf:resource="#SearchResult"/>
+			<grounding:xsltTransformationString>
+				<![CDATA[
+									<xsl:stylesheet version="1.0" 
+																	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ns1="http://webservices.amazon.com/AWSECommerceService/2008-08-19" 
+																	>
+										<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
+										<xsl:template match="/ns1:Items">
+											<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:onto="http://rrasmo.com/owlsrunner/ontAmazon.owl#">
+											<onto:SearchResult>
+												<!--<onto:totalSearchPages rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">-->
+												<onto:totalSearchPages>
+													<xsl:value-of select="ns1:TotalPages"/>
+												</onto:totalSearchPages>
+												<!--<onto:totalSearchResults rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">-->
+												<onto:totalSearchResults>
+													<xsl:value-of select="ns1:TotalResults"/>
+												</onto:totalSearchResults>
+												<xsl:for-each select="ns1:Item">
+													<onto:searchItem>
+														<onto:SearchItem>
+															<onto:ASIN>
+																<xsl:value-of select="ns1:ASIN"/>
+															</onto:ASIN>
+															<onto:title>
+																<xsl:value-of select="ns1:ItemAttributes/ns1:Title"/>
+															</onto:title>
+															<onto:author>
+																<xsl:value-of select="ns1:ItemAttributes/ns1:Author"/>
+															</onto:author>
+															<onto:productGroup>
+																<xsl:value-of select="ns1:ItemAttributes/ns1:ProductGroup"/>
+															</onto:productGroup>
+															<onto:detailPageURL>
+																<xsl:value-of select="ns1:DetailPageURL"/>
+															</onto:detailPageURL>
+															<onto:price>
+																<!--<xsl:value-of select="ns1:Offers/ns1:Offer/ns1:OfferListing/ns1:Price/ns1:FormattedPrice"/>-->
+																<!--<xsl:value-of select="ns1:OfferSummary/ns1:LowestNewPrice/ns1:FormattedPrice"/>-->
+																<onto:Price>
+																	<onto:amount>
+																		<xsl:value-of select="ns1:OfferSummary/ns1:LowestNewPrice/ns1:Amount"/>
+																	</onto:amount>
+																	<onto:currencyCode>
+																		<xsl:value-of select="ns1:OfferSummary/ns1:LowestNewPrice/ns1:CurrencyCode"/>
+																	</onto:currencyCode>
+																	<onto:formattedPrice>
+																		<xsl:value-of select="ns1:OfferSummary/ns1:LowestNewPrice/ns1:FormattedPrice"/>
+																	</onto:formattedPrice>
+																</onto:Price>
+															</onto:price>
+														</onto:SearchItem>
+													</onto:searchItem>
+												</xsl:for-each>														 
+											</onto:SearchResult>
+										</rdf:RDF>
+										</xsl:template>
+									</xsl:stylesheet>
+									]]>
+			</grounding:xsltTransformationString>
+	</grounding:WsdlOutputMessageMap>
+
+	<grounding:WsdlInputMessageMap rdf:ID="CartRequestWithIdWSDLMap">
+			<grounding:wsdlMessagePart rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#Request</grounding:wsdlMessagePart>
+			<grounding:owlsParameter rdf:resource="#CartRequestWithId"/>
+			<grounding:xsltTransformationString>
+				<![CDATA[
+									<xsl:stylesheet version="1.0" 
+																	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:onto="http://rrasmo.com/owlsrunner/ontAmazon.owl#" 
+																	>
+										<xsl:template match="//onto:CartRequestWithId">
+											<Request>
+												<CartId>
+													<xsl:value-of select="onto:cartId"/>
+												</CartId>
+												<HMAC>
+													<xsl:value-of select="onto:HMAC"/>
+												</HMAC>											
+											</Request>
+										</xsl:template>
+									</xsl:stylesheet>
+									]]>
+								</grounding:xsltTransformationString>
+	</grounding:WsdlInputMessageMap>
+	
+	<grounding:WsdlInputMessageMap rdf:ID="CartRequestWithItemsWSDLMap">
+			<grounding:wsdlMessagePart rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#Request</grounding:wsdlMessagePart>
+			<grounding:owlsParameter rdf:resource="#CartRequestWithItems"/>
+			<grounding:xsltTransformationString>
+				<![CDATA[
+									<xsl:stylesheet version="1.0" 
+																	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:onto="http://rrasmo.com/owlsrunner/ontAmazon.owl#" 
+																	>
+										<xsl:template match="//onto:CartRequestWithItems">
+											<Request>
+												<Items>
+													<xsl:for-each select="onto:cartAddition/onto:CartAddition">
+														<Item>
+															<ASIN>
+																<xsl:value-of select="onto:ASIN"/>
+															</ASIN>
+															<Quantity>
+																<xsl:value-of select="onto:quantity"/>
+															</Quantity>
+														</Item>
+													</xsl:for-each>
+												</Items>				
+											</Request>
+										</xsl:template>
+									</xsl:stylesheet>
+									]]>
+								</grounding:xsltTransformationString>
+	</grounding:WsdlInputMessageMap>
+	
+	<grounding:WsdlInputMessageMap rdf:ID="CartRequestWithIdAndItemsWSDLMap">
+			<grounding:wsdlMessagePart rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#Request</grounding:wsdlMessagePart>
+			<grounding:owlsParameter rdf:resource="#CartRequestWithIdAndItems"/>
+			<grounding:xsltTransformationString>
+				<![CDATA[
+									<xsl:stylesheet version="1.0" 
+																	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:onto="http://rrasmo.com/owlsrunner/ontAmazon.owl#" 
+																	>
+										<xsl:template match="//onto:CartRequestWithIdAndItems">
+											<Request>
+												<CartId>
+													<xsl:value-of select="onto:cartId"/>
+												</CartId>
+												<HMAC>
+													<xsl:value-of select="onto:HMAC"/>
+												</HMAC>		
+												<Items>
+													<xsl:for-each select="onto:cartAddition/onto:CartAddition">
+														<Item>
+															<ASIN>
+																<xsl:value-of select="onto:ASIN"/>
+															</ASIN>
+															<Quantity>
+																<xsl:value-of select="onto:quantity"/>
+															</Quantity>
+														</Item>
+													</xsl:for-each>
+												</Items>				
+											</Request>
+										</xsl:template>
+									</xsl:stylesheet>
+									]]>
+								</grounding:xsltTransformationString>
+	</grounding:WsdlInputMessageMap>
+	
+	<grounding:WsdlInputMessageMap rdf:ID="CartRequestWithIdAndModsWSDLMap">
+			<grounding:wsdlMessagePart rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#Request</grounding:wsdlMessagePart>
+			<grounding:owlsParameter rdf:resource="#CartRequestWithIdAndMods"/>
+			<grounding:xsltTransformationString>
+				<![CDATA[
+									<xsl:stylesheet version="1.0" 
+																	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:onto="http://rrasmo.com/owlsrunner/ontAmazon.owl#" 
+																	>
+										<xsl:template match="//onto:CartRequestWithIdAndMods">
+											<Request>
+												<CartId>
+													<xsl:value-of select="onto:cartId"/>
+												</CartId>
+												<HMAC>
+													<xsl:value-of select="onto:HMAC"/>
+												</HMAC>		
+												<Items>
+													<xsl:for-each select="onto:cartModification/onto:CartModification">
+														<Item>
+															<CartItemId>
+																<xsl:value-of select="onto:cartItemId"/>
+															</CartItemId>
+															<Quantity>
+																<xsl:value-of select="onto:quantity"/>
+															</Quantity>
+														</Item>
+													</xsl:for-each>
+												</Items>				
+											</Request>
+										</xsl:template>
+									</xsl:stylesheet>
+									]]>
+								</grounding:xsltTransformationString>
+	</grounding:WsdlInputMessageMap>
+	
+	<grounding:WsdlOutputMessageMap rdf:ID="CartIdWSDLMap">
+			<grounding:wsdlMessagePart rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#Cart</grounding:wsdlMessagePart>
+			<grounding:owlsParameter rdf:resource="#CartId"/>
+			<grounding:xsltTransformationString>
+				<![CDATA[
+									<xsl:stylesheet version="1.0" 
+																	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ns1="http://webservices.amazon.com/AWSECommerceService/2008-08-19" 
+																	>
+										<xsl:template match="/ns1:Cart">
+											<xsl:value-of select="ns1:CartId"/>
+										</xsl:template>
+									</xsl:stylesheet>
+									]]>
+			</grounding:xsltTransformationString>
+	</grounding:WsdlOutputMessageMap>
+	<grounding:WsdlOutputMessageMap rdf:ID="HMACWSDLMap">
+			<grounding:wsdlMessagePart rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#Cart</grounding:wsdlMessagePart>
+			<grounding:owlsParameter rdf:resource="#HMAC"/>
+			<grounding:xsltTransformationString>
+				<![CDATA[
+									<xsl:stylesheet version="1.0" 
+																	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ns1="http://webservices.amazon.com/AWSECommerceService/2008-08-19" 
+																	>
+										<xsl:template match="/ns1:Cart">
+											<xsl:value-of select="ns1:HMAC"/>
+										</xsl:template>
+									</xsl:stylesheet>
+									]]>
+			</grounding:xsltTransformationString>
+	</grounding:WsdlOutputMessageMap>
+	<grounding:WsdlOutputMessageMap rdf:ID="PurchaseURLWSDLMap">
+			<grounding:wsdlMessagePart rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#Cart</grounding:wsdlMessagePart>
+			<grounding:owlsParameter rdf:resource="#PurchaseURL"/>
+			<grounding:xsltTransformationString>
+				<![CDATA[
+									<xsl:stylesheet version="1.0" 
+																	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ns1="http://webservices.amazon.com/AWSECommerceService/2008-08-19" 
+																	>
+										<xsl:template match="/ns1:Cart">
+											<xsl:value-of select="ns1:PurchaseURL"/>
+										</xsl:template>
+									</xsl:stylesheet>
+									]]>
+			</grounding:xsltTransformationString>
+	</grounding:WsdlOutputMessageMap>
+	<grounding:WsdlOutputMessageMap rdf:ID="TotalPriceWSDLMap">
+			<grounding:wsdlMessagePart rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#Cart</grounding:wsdlMessagePart>
+			<grounding:owlsParameter rdf:resource="#TotalPrice"/>
+			<grounding:xsltTransformationString>
+				<![CDATA[
+									<xsl:stylesheet version="1.0" 
+																	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ns1="http://webservices.amazon.com/AWSECommerceService/2008-08-19" 
+																	>
+										<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
+										<xsl:template match="/ns1:Cart">
+											<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:onto="http://rrasmo.com/owlsrunner/ontAmazon.owl#">
+											<onto:Price>
+												<onto:amount>
+													<xsl:value-of select="ns1:SubTotal/ns1:Amount"/>
+												</onto:amount>
+												<onto:currencyCode>
+													<xsl:value-of select="ns1:SubTotal/ns1:CurrencyCode"/>
+												</onto:currencyCode>
+												<onto:formattedPrice>
+													<xsl:value-of select="ns1:SubTotal/ns1:FormattedPrice"/>
+												</onto:formattedPrice>
+											</onto:Price>
+										</rdf:RDF>
+										</xsl:template>
+									</xsl:stylesheet>
+									]]>
+			</grounding:xsltTransformationString>
+	</grounding:WsdlOutputMessageMap>
+	<grounding:WsdlOutputMessageMap rdf:ID="CartContentWSDLMap">
+			<grounding:wsdlMessagePart rdf:datatype="&xsd;anyURI"
+					>http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl#Cart</grounding:wsdlMessagePart>
+			<grounding:owlsParameter rdf:resource="#CartContent"/>
+			<grounding:xsltTransformationString>
+				<![CDATA[
+									<xsl:stylesheet version="1.0" 
+																	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ns1="http://webservices.amazon.com/AWSECommerceService/2008-08-19" 
+																	>
+										<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
+										<xsl:template match="/ns1:Cart">
+											<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:onto="http://rrasmo.com/owlsrunner/ontAmazon.owl#">
+											<onto:CartContent>												
+												<xsl:for-each select="ns1:CartItems/ns1:CartItem">
+													<onto:cartItem>
+														<onto:CartItem>
+															<onto:ASIN>
+																<xsl:value-of select="ns1:ASIN"/>
+															</onto:ASIN>
+															<onto:title>
+																<xsl:value-of select="ns1:Title"/>
+															</onto:title>
+															<onto:cartItemId>
+																<xsl:value-of select="ns1:CartItemId"/>
+															</onto:cartItemId>
+															<onto:merchantId>
+																<xsl:value-of select="ns1:MerchantId"/>
+															</onto:merchantId>
+															<onto:sellerId>
+																<xsl:value-of select="ns1:SellerId"/>
+															</onto:sellerId>
+															<onto:sellerNickname>
+																<xsl:value-of select="ns1:SellerNickname"/>
+															</onto:sellerNickname>
+															<onto:quantity>
+																<xsl:value-of select="ns1:Quantity"/>
+															</onto:quantity>
+															<onto:productGroup>
+																<xsl:value-of select="ns1:ProductGroup"/>
+															</onto:productGroup>
+															<onto:price>																
+																<onto:Price>
+																	<onto:amount>
+																		<xsl:value-of select="ns1:Price/ns1:Amount"/>
+																	</onto:amount>
+																	<onto:currencyCode>
+																		<xsl:value-of select="ns1:Price/ns1:CurrencyCode"/>
+																	</onto:currencyCode>
+																	<onto:formattedPrice>
+																		<xsl:value-of select="ns1:Price/ns1:FormattedPrice"/>
+																	</onto:formattedPrice>
+																</onto:Price>
+															</onto:price>
+															<onto:itemTotal>																
+																<onto:Price>
+																	<onto:amount>
+																		<xsl:value-of select="ns1:ItemTotal/ns1:Amount"/>
+																	</onto:amount>
+																	<onto:currencyCode>
+																		<xsl:value-of select="ns1:ItemTotal/ns1:CurrencyCode"/>
+																	</onto:currencyCode>
+																	<onto:formattedPrice>
+																		<xsl:value-of select="ns1:ItemTotal/ns1:FormattedPrice"/>
+																	</onto:formattedPrice>
+																</onto:Price>
+															</onto:itemTotal>															
+														</onto:CartItem>
+													</onto:cartItem>
+												</xsl:for-each>													 
+											</onto:CartContent>
+										</rdf:RDF>
+										</xsl:template>
+									</xsl:stylesheet>
+									]]>
+			</grounding:xsltTransformationString>
+	</grounding:WsdlOutputMessageMap>
+	
+	
+	
+</rdf:RDF>
